@@ -9,4 +9,8 @@
     <string name="enter_otp">Enter OTP</string>
     <string name="verify">Verify</string>
     <string name="change_phone">Change Phone Number</string>
+    <string name="emergency">Emergency</string>
+    <string name="add_crimson_user">Add Crimson User</string>
+    <string name="contacts">Contacts</string>
+    <string name="maps">Maps</string>
 </resources>
