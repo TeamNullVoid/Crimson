@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Crimson">
         <activity
-            android:name=".WelcomeActivity"
+            android:name=".authenticationPhone"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
