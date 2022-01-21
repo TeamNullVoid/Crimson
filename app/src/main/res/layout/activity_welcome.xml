@@ -27,7 +27,10 @@
 
     <com.google.android.material.button.MaterialButton
         android:layout_width="wrap_content"
+        android:id="@+id/continueButton"
         android:layout_height="wrap_content"
+        app:icon="@drawable/ic_arrow_right"
+        app:iconGravity="end"
         android:layout_marginTop="64dp"
         android:text="@string/cont" />
 

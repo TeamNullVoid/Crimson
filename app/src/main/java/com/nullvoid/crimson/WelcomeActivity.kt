@@ -1,11 +1,21 @@
 package com.nullvoid.crimson
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
+import com.nullvoid.crimson.auth.AuthPage
+import com.nullvoid.crimson.databinding.ActivityWelcomeBinding
 
 class WelcomeActivity : AppCompatActivity() {
+
+    private lateinit var binding: ActivityWelcomeBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_welcome)
+        binding = ActivityWelcomeBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        binding.continueButton.setOnClickListener {
+            supportFragmentManager.beginTransaction().add(AuthPage(), AuthPage::class.java.simpleName).commit()
+        }
     }
 }
