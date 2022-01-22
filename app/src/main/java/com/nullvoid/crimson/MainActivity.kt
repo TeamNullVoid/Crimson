@@ -10,6 +10,7 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.app.ActivityCompat
 import com.google.firebase.auth.FirebaseAuth
 import com.nullvoid.crimson.adapters.MainPagerAdapter
+import com.nullvoid.crimson.customs.Constant
 import com.nullvoid.crimson.databinding.ActivityMainBinding
 import com.nullvoid.crimson.fragments.MenuFragment
 
@@ -17,10 +18,6 @@ class MainActivity : AppCompatActivity(), Toolbar.OnMenuItemClickListener {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var menuFragment: MenuFragment
-
-    companion object {
-        private const val RC_LOC = 12
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,7 +42,7 @@ class MainActivity : AppCompatActivity(), Toolbar.OnMenuItemClickListener {
                 arrayOf(
                     Manifest.permission.ACCESS_COARSE_LOCATION,
                     Manifest.permission.ACCESS_FINE_LOCATION
-                ), RC_LOC
+                ), Constant.RC_LOC_PERM
             )
         }
     }

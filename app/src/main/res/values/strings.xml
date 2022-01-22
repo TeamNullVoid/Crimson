@@ -18,4 +18,21 @@
     <string name="siren">Siren</string>
     <string name="live_loc">Share Live Location</string>
     <string name="torch">Torch</string>
+    <string name="me">Me</string>
+    <string name="accuracy">Accuracy: %1$s</string>
+    <string name="change_layer">Change Map Type</string>
+    <string name="turn_on_gps">Turn on GPS</string>
+    <string name="settings">Settings</string>
+    <string name="perm_req">Permission required</string>
+    <string name="ok">OK</string>
+    <string name="permission_denied">Permission Denied</string>
+    <string name="perm_denied_msg">Some Permissions are required for application to operate normally. Please enable them in settings</string>
+    <string name="cancel">Cancel</string>
+    <string name="call_perm_req">Call Permission Required</string>
+    <string name="locPermNeed">Location Permission Required</string>
+    <string-array name="layers">
+        <item>Normal</item>
+        <item>Satellite</item>
+        <item>Hybrid</item>
+    </string-array>
 </resources>
