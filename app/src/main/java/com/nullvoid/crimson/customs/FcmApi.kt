@@ -1,5 +1,6 @@
 package com.nullvoid.crimson.customs
 
+import com.nullvoid.crimson.data.model.FcmPayload
 import okhttp3.ResponseBody
 import retrofit2.Response
 import retrofit2.http.Body

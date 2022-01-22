@@ -13,7 +13,12 @@ import com.google.firebase.auth.PhoneAuthOptions
 import com.google.firebase.auth.PhoneAuthProvider
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import com.nullvoid.crimson.customs.DbHelper
 import com.nullvoid.crimson.databinding.LayoutAuthPhoneBinding
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.await
 import java.util.concurrent.TimeUnit
 import java.util.regex.Pattern
 
@@ -74,15 +79,23 @@ class AuthFragment : BottomSheetDialogFragment() {
 
     private fun firebaseWithCred(credential: PhoneAuthCredential) {
         binding.progress.visibility = View.VISIBLE
-        Firebase.auth.signInWithCredential(credential).addOnSuccessListener {
-            listener?.onVerify()
-            dismiss()
-        }.addOnFailureListener {
-            Toast.makeText(context, it.message.toString(), Toast.LENGTH_LONG).show()
-            binding.sendOtp.isEnabled = true
-            binding.progress.visibility = View.GONE
-            binding.verify.visibility = View.GONE
-            binding.otpLayout.visibility = View.GONE
+        GlobalScope.launch(Dispatchers.IO) {
+            try {
+                Firebase.auth.signInWithCredential(credential).await()
+                DbHelper(requireContext()).loginSetup()
+                listener?.onVerify()
+                launch(Dispatchers.Main){
+                    dismiss()
+                }
+            } catch (e: Exception) {
+                launch(Dispatchers.Main) {
+                    Toast.makeText(context, e.message.toString(), Toast.LENGTH_LONG).show()
+                    binding.sendOtp.isEnabled = true
+                    binding.progress.visibility = View.GONE
+                    binding.verify.visibility = View.GONE
+                    binding.otpLayout.visibility = View.GONE
+                }
+            }
         }
     }
 

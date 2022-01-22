@@ -1,6 +1,7 @@
 package com.nullvoid.crimson.customs
 
 import android.app.*
+import android.app.Notification
 import android.content.Context
 import android.content.Intent
 import android.net.Uri

@@ -3,6 +3,7 @@ package com.nullvoid.crimson.customs
 import android.content.Context
 import android.content.ContextWrapper
 import com.google.firebase.Timestamp
+import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.UserProfileChangeRequest
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.ktx.database
@@ -10,9 +11,11 @@ import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import com.nullvoid.crimson.data.CrimsonExtras
-import com.nullvoid.crimson.data.CrimsonUser
-import com.nullvoid.crimson.data.LocationExtras
+import com.nullvoid.crimson.data.CrimsonDatabase
+import com.nullvoid.crimson.data.model.CrimsonExtras
+import com.nullvoid.crimson.data.model.CrimsonUser
+import com.nullvoid.crimson.data.model.LocalCrimsonUser
+import com.nullvoid.crimson.data.model.LocationExtras
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -63,10 +66,20 @@ class DbHelper(base: Context) : ContextWrapper(base) {
 
     suspend fun reloadFriendsData() {
         val list = fetchFriendList()
+        val db = CrimsonDatabase.getInstance(this)
+        val friends = arrayListOf<LocalCrimsonUser>()
         for (i in list) {
             val user = fetchData("users/$i").toObject(CrimsonUser::class.java)!!
             val extras = fetchData("users/$i/private/extras").toObject(CrimsonExtras::class.java)
+            val locCrimsonUser = LocalCrimsonUser(
+                basic = user,
+                locationExtras = null,
+                crimsonExtras = extras,
+            )
+            friends.add(locCrimsonUser)
         }
+        db.crimsonUserDao.clear()
+        db.crimsonUserDao.insertAll(friends)
         FcmHelper(this).subscribe(list)
     }
 
@@ -82,15 +95,15 @@ class DbHelper(base: Context) : ContextWrapper(base) {
     }
 
     @Throws(Exception::class)
-    suspend fun sendRequest(email: String) {
+    suspend fun sendRequest(phone: String) {
         val query =
-            Firebase.firestore.collection("users").whereEqualTo("userEmail", email.toLowerCase(Locale.ROOT)).get()
+            Firebase.firestore.collection("users").whereEqualTo("userPhone", phone.toLowerCase(Locale.ROOT)).get()
                 .await()
         if (query.documents.isNotEmpty()) {
             val uid = query.documents[0].data?.get("userId")
             setRequest(uid as String)
         } else {
-            throw Exception("Crimson user with this Phone doesn't exist")
+            throw Exception("Crimson user with this email doesn't exist")
         }
     }
 
@@ -103,6 +116,8 @@ class DbHelper(base: Context) : ContextWrapper(base) {
 
         val user = fetchData("users/$uid").toObject(CrimsonUser::class.java)!!
         val extras = fetchData("users/$uid/private/extras").toObject(CrimsonExtras::class.java)
+        val lsu = LocalCrimsonUser(basic = user, locationExtras = null, crimsonExtras = extras)
+        CrimsonDatabase.getInstance(this).crimsonUserDao.insert(lsu)
         FcmHelper(this).subscribe(arrayListOf(uid))
     }
 
@@ -132,13 +147,7 @@ class DbHelper(base: Context) : ContextWrapper(base) {
         val myId = Firebase.auth.currentUser?.uid
         updateField("users/$myId/private/users", "users", FieldValue.arrayRemove(uid))
         updateField("users/$uid/private/users", "users", FieldValue.arrayRemove(myId))
-    }
-
-    suspend fun setStatus(status: String) {
-        val uid = Firebase.auth.currentUser?.uid
-        Firebase.firestore.document("users/$uid/private/extras")
-            .update(mapOf("userStatus" to status, "lastChanged" to SimpleDateFormat("yyyy-MM-dd hh:mm:ss",
-                Locale.ROOT).format(Timestamp.now().toDate()))).await()
+        CrimsonDatabase.getInstance(this).crimsonUserDao.delete(uid)
     }
 
     fun updateLocation(extras: LocationExtras) = CoroutineScope(Dispatchers.IO).launch {

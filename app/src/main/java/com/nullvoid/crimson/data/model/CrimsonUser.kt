@@ -1,4 +1,4 @@
-package com.nullvoid.crimson.data
+package com.nullvoid.crimson.data.model
 
 import java.io.Serializable
 

@@ -6,6 +6,8 @@ import android.util.Log
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.messaging.ktx.messaging
+import com.nullvoid.crimson.data.model.FcmPayload
+import com.nullvoid.crimson.data.model.Notification
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -14,13 +16,15 @@ class FcmHelper(base: Context) : ContextWrapper(base) {
 
     fun sendPushNotification(title: String, message: String) {
         val topic = "/topics/${Firebase.auth.currentUser?.uid}"
-        sendNotification(FcmPayload(
+        sendNotification(
+            FcmPayload(
             to = topic,
             notification = Notification(
                 title = title,
                 body = message
             )
-        ))
+        )
+        )
     }
 
     private fun sendNotification(notification: FcmPayload) = CoroutineScope(Dispatchers.IO).launch {
