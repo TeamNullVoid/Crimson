@@ -1,23 +1,23 @@
 package com.nullvoid.crimson
 
-import android.content.DialogInterface
+import android.Manifest
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.google.android.material.snackbar.Snackbar
+import androidx.core.app.ActivityCompat
 import com.google.firebase.auth.FirebaseAuth
 import com.nullvoid.crimson.adapters.MainPagerAdapter
+import com.nullvoid.crimson.customs.Constant
 import com.nullvoid.crimson.databinding.ActivityMainBinding
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
+import com.nullvoid.crimson.fragments.MenuFragment
 
 class MainActivity : AppCompatActivity(), Toolbar.OnMenuItemClickListener {
 
     private lateinit var binding: ActivityMainBinding
+    private lateinit var menuFragment: MenuFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,7 +25,26 @@ class MainActivity : AppCompatActivity(), Toolbar.OnMenuItemClickListener {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        checkPerms()
         init()
+    }
+
+    private fun checkPerms() {
+        if (ActivityCompat.checkSelfPermission(
+                this,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED || ActivityCompat.checkSelfPermission(
+                this,
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            requestPermissions(
+                arrayOf(
+                    Manifest.permission.ACCESS_COARSE_LOCATION,
+                    Manifest.permission.ACCESS_FINE_LOCATION
+                ), Constant.RC_LOC_PERM
+            )
+        }
     }
 
     private fun init() {
@@ -33,12 +52,12 @@ class MainActivity : AppCompatActivity(), Toolbar.OnMenuItemClickListener {
         binding.mainTabLayout.setupWithViewPager(binding.mainPager)
         setupTabs()
         binding.mainBottomBar.setOnMenuItemClickListener(this)
+        menuFragment = MenuFragment()
         binding.mainEmergencyButton.setOnClickListener {
-//            startActivity(Intent(this, EmergencyActivity::class.java))
         }
         binding.mainBottomBar.setNavigationOnClickListener {
-//            supportFragmentManager.beginTransaction()
-//                .add(MenuFragment(), MenuFragment::class.simpleName).commit()
+            supportFragmentManager.beginTransaction()
+                .add(MenuFragment(), MenuFragment::class.simpleName).commit()
         }
     }
 
@@ -65,10 +84,11 @@ class MainActivity : AppCompatActivity(), Toolbar.OnMenuItemClickListener {
     }
 
     override fun onMenuItemClick(item: MenuItem): Boolean {
-//        when (item.itemId) {
-//            R.id.menu_addUser -> supportFragmentManager.beginTransaction()
-//                .add(SendRequestFragment(), SendRequestFragment::class.java.simpleName).commit()
-//        }
+        if (item.itemId == R.id.add_user) {
+            startActivity(Intent(this, AddCrimsonUser::class.java))
+        } else if (item.itemId == R.id.requests) {
+            startActivity(Intent(this, RequestActivity::class.java))
+        }
         return true
     }
 
