@@ -21,7 +21,7 @@ class Constant {
         const val DB_NAME = "sepia_db"
         const val RC_PERMISSION = 0
         const val KEY_FIRST_RUN = "key_firstRun"
-        const val SP_SEPIA = "sp_sepia"
+        const val SP_CRIMSON = "sp_crimson"
         const val PREF_KEY_THEME = "key_theme"
 
         const val FCM_URL = "https://fcm.googleapis.com"

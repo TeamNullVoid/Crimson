@@ -36,6 +36,14 @@
     <string name="name_cant_empty">Name can\'t be empty</string>
     <string name="remove">Remove</string>
     <string name="position">"Position: %1$f, %2$f"</string>
+    <string name="share_live_location">Share Live Location with contacts</string>
+    <string name="share">Share</string>
+    <string name="live_location_sharing_is_active">Live location sharing is active</string>
+    <string name="stop_sharing">Stop Sharing</string>
+    <string name="end_at">"Ends at: %1$s"</string>
+    <string name="sharing_location">Sharing Location</string>
+    <string name="location_updates">Location Updates</string>
+    <string name="msg_started_loc_share">%1$s Started Location Sharing</string>
     <string-array name="layers">
         <item>Normal</item>
         <item>Satellite</item>

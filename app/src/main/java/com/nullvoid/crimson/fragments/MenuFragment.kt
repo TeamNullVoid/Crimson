@@ -5,9 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.nullvoid.crimson.customs.Global
 import com.nullvoid.crimson.customs.SirenUtil
 import com.nullvoid.crimson.customs.TorchUtil
 import com.nullvoid.crimson.databinding.FragmentMenuBinding
+import com.nullvoid.crimson.services.LocSharingService
 
 class MenuFragment : BottomSheetDialogFragment() {
 
@@ -49,6 +51,17 @@ class MenuFragment : BottomSheetDialogFragment() {
             isTorchOn = isChecked
             torchUtil.toggleTorch(isTorchOn)
         }
+
+        binding.shareLocation.setOnClickListener { shareLoc() }
+
+    }
+
+    private fun shareLoc() {
+        val frag =
+            if (Global.isMyServiceRunning(requireContext(), LocSharingService::class.java)) StopLocSharingFragment() else ShareLocationFragment()
+        parentFragmentManager.beginTransaction()
+            .add(frag, "Share Location Fragment").commit()
+        dismiss()
     }
 
 }
