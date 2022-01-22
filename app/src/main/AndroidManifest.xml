@@ -23,6 +23,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Crimson">
         <activity
+            android:name=".EmergencyActivity"
+            android:exported="false" />
+        <activity
             android:name=".RequestActivity"
             android:exported="false" />
         <activity

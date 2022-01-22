@@ -49,6 +49,9 @@
     <string name="no_new_requests">No new requests</string>
     <string name="safe">Safe</string>
     <string name="emergency_alert">Emergency Alert</string>
+    <string name="emergency_service_triggered">Emergency Service activated</string>
+    <string name="triggered_alert">Emergency Triggered: %1$s</string>
+    <string name="stop">Stop</string>
     <string-array name="layers">
         <item>Normal</item>
         <item>Satellite</item>
