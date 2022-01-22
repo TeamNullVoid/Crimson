@@ -29,7 +29,7 @@ class DbHelper(base: Context) : ContextWrapper(base) {
         val u = Firebase.auth.currentUser!!
         val user = CrimsonUser(
             userId = u.uid,
-            userPhone = u.phoneNumber?.toLowerCase(Locale.ROOT),
+            userPhone = u.phoneNumber?.lowercase(Locale.ROOT),
             userName = u.displayName,
             photoUri = u.photoUrl.toString()
         )
@@ -97,7 +97,9 @@ class DbHelper(base: Context) : ContextWrapper(base) {
     @Throws(Exception::class)
     suspend fun sendRequest(phone: String) {
         val query =
-            Firebase.firestore.collection("users").whereEqualTo("userPhone", phone.toLowerCase(Locale.ROOT)).get()
+            Firebase.firestore.collection("users").whereEqualTo("userPhone",
+                phone.lowercase(Locale.ROOT)
+            ).get()
                 .await()
         if (query.documents.isNotEmpty()) {
             val uid = query.documents[0].data?.get("userId")

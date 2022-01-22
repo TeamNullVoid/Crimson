@@ -59,6 +59,14 @@ class MainActivity : AppCompatActivity(), Toolbar.OnMenuItemClickListener {
             supportFragmentManager.beginTransaction()
                 .add(MenuFragment(), MenuFragment::class.simpleName).commit()
         }
+        binding.mainEmergencyButton.setOnClickListener {
+            startActivity(
+                Intent(
+                    this,
+                    EmergencyActivity::class.java
+                )
+            )
+        }
     }
 
     private val authListener = FirebaseAuth.AuthStateListener {

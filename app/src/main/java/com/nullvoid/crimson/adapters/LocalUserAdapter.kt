@@ -2,7 +2,10 @@ package com.nullvoid.crimson.adapters
 
 import android.Manifest
 import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
+import android.content.res.ColorStateList
+import android.graphics.Color
 import android.telephony.SmsManager
 import android.view.LayoutInflater
 import android.view.View
@@ -15,7 +18,9 @@ import androidx.appcompat.widget.TooltipCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.card.MaterialCardView
+import com.nullvoid.crimson.CrimsonContactActivity
 import com.nullvoid.crimson.R
+import com.nullvoid.crimson.customs.Constant
 import com.nullvoid.crimson.customs.LocationHelper
 import com.nullvoid.crimson.data.model.LocalCrimsonUser
 import kotlinx.coroutines.Dispatchers
@@ -44,6 +49,7 @@ class LocalUserAdapter : RecyclerView.Adapter<LocalUserAdapter.SepiaViewHolder>(
         holder.titleView.text = users[position].basic.userPhone
         if (users[position].crimsonExtras?.inEmergency == false) {
             holder.endIcon.icon = AppCompatResources.getDrawable(context, R.drawable.ic_check_b)
+            holder.endIcon.iconTint = ColorStateList.valueOf(Color.parseColor("#4CAF50"))
             TooltipCompat.setTooltipText(holder.endIcon, context.getString(R.string.safe))
         } else {
             holder.endIcon.icon = AppCompatResources.getDrawable(context, R.drawable.ic_error)
@@ -51,15 +57,17 @@ class LocalUserAdapter : RecyclerView.Adapter<LocalUserAdapter.SepiaViewHolder>(
                 holder.endIcon,
                 context.getString(R.string.emergency_alert)
             )
+            holder.endIcon.iconTint = ColorStateList.valueOf(Color.parseColor("#BA1B1B"))
         }
         holder.root.setOnClickListener {
-//            context.startActivity(Intent(context, SepiaContactActivity::class.java).also {
-//                it.putExtra(Constant.EXTRAS_ID,
-//                    users[position])
-//            })
+            context.startActivity(Intent(context, CrimsonContactActivity::class.java).also {
+                it.putExtra(
+                    Constant.EXTRAS_ID,
+                    users[position]
+                )
+            })
         }
         holder.locIcon.setOnClickListener {
-            val manger = SmsManager.getDefault()
             sendSms(users[position].basic.userPhone)
         }
     }

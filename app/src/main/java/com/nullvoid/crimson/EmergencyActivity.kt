@@ -33,8 +33,6 @@ class EmergencyActivity : AppCompatActivity(), View.OnClickListener {
         inEmergency = Global.isMyServiceRunning(this, EmergencyService::class.java)
         binding.emergencyEmergencyButton.setOnClickListener(this)
         binding.emergencyEmergencyToolbar.setNavigationOnClickListener { finish() }
-        binding.emergencyEmergencyCallList.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-        binding.emergencyEmergencyCallList.hasFixedSize()
         emergencyUI(inEmergency)
         if (inEmergency) binding.emergencyTimer.visibility = View.GONE
         else{
@@ -73,11 +71,7 @@ class EmergencyActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun startService() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            startForegroundService(Intent(this, EmergencyService::class.java))
-        } else {
-            startService(Intent(this, EmergencyService::class.java))
-        }
+        startForegroundService(Intent(this, EmergencyService::class.java))
     }
 
     private fun emergencyUI(value: Boolean) {
@@ -93,15 +87,6 @@ class EmergencyActivity : AppCompatActivity(), View.OnClickListener {
     override fun onDestroy() {
         super.onDestroy()
         timer.cancel()
-    }
-
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (requestCode == Constant.RC_PERMISSION) {
-            if (grantResults.isEmpty() || grantResults[0] != PackageManager.PERMISSION_GRANTED) {
-                Global.showMessage(this)
-            }
-        }
     }
 
 }

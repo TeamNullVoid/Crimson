@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_height="match_parent"
+    android:background="@color/md_theme_light_primaryContainer"
     android:gravity="center_horizontal"
     android:orientation="vertical">
 
@@ -27,19 +28,14 @@
             android:layout_height="wrap_content"
             android:layout_margin="8dp" />
 
-        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        <com.google.android.material.button.MaterialButton
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="60dp"
             android:layout_margin="8dp"
             android:id="@+id/emergencyEmergencyButton"
             android:text="@string/emergency"
             app:icon="@drawable/ic_ring" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/emergencyEmergency_callList"
-            android:layout_width="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_height="wrap_content" />
 
     </LinearLayout>
 

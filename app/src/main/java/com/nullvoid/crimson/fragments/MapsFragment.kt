@@ -329,7 +329,7 @@ class MapsFragment : Fragment(), OnMapReadyCallback, View.OnClickListener,
                     ) == PackageManager.PERMISSION_GRANTED
                 ) {
                     addGeofence(
-                        name.capitalize(Locale.ROOT),
+                        name.replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.ROOT) else it.toString() },
                         placesMarker?.position!!,
                         binding.placesSheet.placesRadiusSlider.value
                     )
@@ -346,7 +346,7 @@ class MapsFragment : Fragment(), OnMapReadyCallback, View.OnClickListener,
                 }
             } else {
                 addGeofence(
-                    name.capitalize(Locale.ROOT),
+                    name.replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.ROOT) else it.toString() },
                     placesMarker?.position!!, binding.placesSheet.placesRadiusSlider.value
                 )
             }

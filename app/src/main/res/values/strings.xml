@@ -52,6 +52,10 @@
     <string name="emergency_service_triggered">Emergency Service activated</string>
     <string name="triggered_alert">Emergency Triggered: %1$s</string>
     <string name="stop">Stop</string>
+    <string name="remove_friend">Remove Contact</string>
+    <string name="location_not_available">Location Not Available</string>
+    <string name="location_available">Location Available</string>
+    <string name="last_updated">Last Updated: %1$s</string>
     <string-array name="layers">
         <item>Normal</item>
         <item>Satellite</item>
