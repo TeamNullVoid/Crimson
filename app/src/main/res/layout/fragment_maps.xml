@@ -37,4 +37,8 @@
 
     </LinearLayout>
 
+    <include
+        android:id="@+id/places_sheet"
+        layout="@layout/layout_places_sheet" />
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

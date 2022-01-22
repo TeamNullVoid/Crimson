@@ -30,6 +30,12 @@
     <string name="cancel">Cancel</string>
     <string name="call_perm_req">Call Permission Required</string>
     <string name="locPermNeed">Location Permission Required</string>
+    <string name="place_name">Place Name</string>
+    <string name="place_radius">Place Radius</string>
+    <string name="save">Save</string>
+    <string name="name_cant_empty">Name can\'t be empty</string>
+    <string name="remove">Remove</string>
+    <string name="position">"Position: %1$f, %2$f"</string>
     <string-array name="layers">
         <item>Normal</item>
         <item>Satellite</item>

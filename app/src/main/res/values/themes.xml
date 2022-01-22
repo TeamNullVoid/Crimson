@@ -28,4 +28,9 @@
         <item name="colorSurfaceInverse">@color/md_theme_light_inverseSurface</item>
         <item name="colorPrimaryInverse">@color/md_theme_light_primaryInverse</item>
     </style>
+
+    <style name="SliderLabelStyle" parent="Widget.MaterialComponents.Tooltip">
+        <item name="backgroundTint">@color/md_theme_light_primary</item>
+        <item name="tint">#ffffff</item>
+    </style>
 </resources>
