@@ -7,5 +7,11 @@
         android:icon="@drawable/ic_connect"
         android:title="@string/add_crimson_user"
         app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/requests"
+        android:icon="@drawable/ic_requests"
+        android:title="@string/requests"
+        app:showAsAction="ifRoom" />
+
 
 </menu>

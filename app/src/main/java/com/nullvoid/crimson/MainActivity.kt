@@ -86,6 +86,8 @@ class MainActivity : AppCompatActivity(), Toolbar.OnMenuItemClickListener {
     override fun onMenuItemClick(item: MenuItem): Boolean {
         if (item.itemId == R.id.add_user) {
             startActivity(Intent(this, AddCrimsonUser::class.java))
+        } else if (item.itemId == R.id.requests) {
+            startActivity(Intent(this, RequestActivity::class.java))
         }
         return true
     }

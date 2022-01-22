@@ -103,7 +103,7 @@ class DbHelper(base: Context) : ContextWrapper(base) {
             val uid = query.documents[0].data?.get("userId")
             setRequest(uid as String)
         } else {
-            throw Exception("Crimson user with this email doesn't exist")
+            throw Exception("Crimson user with this Phone Number doesn't exist")
         }
     }
 
