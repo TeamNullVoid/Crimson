@@ -1,23 +1,19 @@
 package com.nullvoid.crimson
 
-import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.nullvoid.crimson.adapters.MainPagerAdapter
 import com.nullvoid.crimson.databinding.ActivityMainBinding
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
+import com.nullvoid.crimson.fragments.MenuFragment
 
 class MainActivity : AppCompatActivity(), Toolbar.OnMenuItemClickListener {
 
     private lateinit var binding: ActivityMainBinding
+    private lateinit var menuFragment: MenuFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,12 +29,13 @@ class MainActivity : AppCompatActivity(), Toolbar.OnMenuItemClickListener {
         binding.mainTabLayout.setupWithViewPager(binding.mainPager)
         setupTabs()
         binding.mainBottomBar.setOnMenuItemClickListener(this)
+        menuFragment = MenuFragment()
         binding.mainEmergencyButton.setOnClickListener {
 //            startActivity(Intent(this, EmergencyActivity::class.java))
         }
         binding.mainBottomBar.setNavigationOnClickListener {
-//            supportFragmentManager.beginTransaction()
-//                .add(MenuFragment(), MenuFragment::class.simpleName).commit()
+            supportFragmentManager.beginTransaction()
+                .add(MenuFragment(), MenuFragment::class.simpleName).commit()
         }
     }
 
