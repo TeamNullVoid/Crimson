@@ -79,6 +79,8 @@ class AuthFragment : BottomSheetDialogFragment() {
 
     private fun firebaseWithCred(credential: PhoneAuthCredential) {
         binding.progress.visibility = View.VISIBLE
+        binding.verify.visibility = View.GONE
+        binding.otpLayout.visibility = View.GONE
         GlobalScope.launch(Dispatchers.IO) {
             try {
                 Firebase.auth.signInWithCredential(credential).await()
