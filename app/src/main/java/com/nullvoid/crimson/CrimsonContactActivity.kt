@@ -139,8 +139,8 @@ class CrimsonContactActivity : AppCompatActivity(), OnMapReadyCallback {
 
     override fun onMapReady(map: GoogleMap) {
         maps = map
-        map.setInfoWindowAdapter(InfoWindowAdapter(this))
         map.animateCamera(CameraUpdateFactory.newLatLngZoom(LatLng(24.668887, 78.521063), 5f))
+        map.setInfoWindowAdapter(InfoWindowAdapter(this))
         map.uiSettings.isMapToolbarEnabled = false
         updateUi()
     }
@@ -156,6 +156,7 @@ class CrimsonContactActivity : AppCompatActivity(), OnMapReadyCallback {
             binding.crimsonContactInEmergency.setText(R.string.safe)
             binding.crimsonContactInEmergency.setChipIconResource(R.drawable.ic_check)
         }
+        maps?.clear()
 
         if (user.locationExtras != null && user.locationExtras?.latitude != null && user.locationExtras?.longitude != null) {
             val latLng = LatLng(user.locationExtras?.latitude!!, user.locationExtras?.longitude!!)
@@ -164,11 +165,11 @@ class CrimsonContactActivity : AppCompatActivity(), OnMapReadyCallback {
             maps?.clear()
             myMarker = maps?.addMarker(MarkerOptions().apply {
                 position(latLng)
-                title(user.basic.userName ?: "No Name")
+                title(user.basic.userName)
                 snippet(getString(R.string.last_updated, user.locationExtras?.lastUpdate))
             })
-            maps?.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 20f))
             myMarker?.setIcon(BitmapDescriptorFactory.fromBitmap(avatarBitmap))
+            maps?.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 20f))
         }
     }
 
