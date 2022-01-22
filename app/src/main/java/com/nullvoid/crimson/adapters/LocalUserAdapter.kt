@@ -1,9 +1,14 @@
 package com.nullvoid.crimson.adapters
 
+import android.Manifest
 import android.content.Context
+import android.content.pm.PackageManager
+import android.telephony.SmsManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.appcompat.widget.TooltipCompat
@@ -11,7 +16,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.card.MaterialCardView
 import com.nullvoid.crimson.R
+import com.nullvoid.crimson.customs.LocationHelper
 import com.nullvoid.crimson.data.model.LocalCrimsonUser
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 class LocalUserAdapter : RecyclerView.Adapter<LocalUserAdapter.SepiaViewHolder>() {
 
@@ -49,6 +58,10 @@ class LocalUserAdapter : RecyclerView.Adapter<LocalUserAdapter.SepiaViewHolder>(
 //                    users[position])
 //            })
         }
+        holder.locIcon.setOnClickListener {
+            val manger = SmsManager.getDefault()
+            sendSms(users[position].basic.userPhone)
+        }
     }
 
     override fun getItemCount(): Int = users.size
@@ -56,6 +69,33 @@ class LocalUserAdapter : RecyclerView.Adapter<LocalUserAdapter.SepiaViewHolder>(
     fun setData(list: List<LocalCrimsonUser>) {
         users = list
         notifyDataSetChanged()
+    }
+
+    private fun sendSms(phone: String?) {
+        GlobalScope.launch(Dispatchers.IO) {
+            var message = "Emergency Alert\nI am in Emergency, Help!!!"
+            try {
+                val helper = LocationHelper(context)
+                helper.initialize()
+                val loc = helper.getRecentLocation()
+                if (loc != null)
+                    message += "\n\nSee my recent location at https://maps.google.com/?q=${loc.latitude},${loc.longitude}"
+
+            } finally {
+                if (context.checkSelfPermission(Manifest.permission.SEND_SMS) == PackageManager.PERMISSION_GRANTED) {
+                    val manager = SmsManager.getDefault()
+                    manager.sendTextMessage(phone, null, message, null, null)
+                    launch(Dispatchers.Main) {
+                        Toast.makeText(context, "Recent Location Shared on SMS", Toast.LENGTH_LONG).show()
+                    }
+                } else {
+                    (context as AppCompatActivity).requestPermissions(
+                        arrayOf(Manifest.permission.SEND_SMS),
+                        1
+                    )
+                }
+            }
+        }
     }
 
 }
