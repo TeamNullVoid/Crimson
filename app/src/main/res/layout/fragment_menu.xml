@@ -41,7 +41,7 @@
     </com.google.android.material.button.MaterialButtonToggleGroup>
 
     <com.google.android.material.button.MaterialButton
-        style="@style/Widget.Material3.Button.TextButton"
+        style="@style/Widget.Material3.Button"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_margin="8dp"

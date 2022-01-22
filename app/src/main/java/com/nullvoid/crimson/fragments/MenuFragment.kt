@@ -11,6 +11,11 @@ class MenuFragment : BottomSheetDialogFragment() {
 
     private lateinit var binding: FragmentMenuBinding
 
+    companion object {
+        private var isTorchOn: Boolean = false
+        private var isSirenOn: Boolean = false
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -22,8 +27,16 @@ class MenuFragment : BottomSheetDialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.siren.isChecked = isSirenOn
+        binding.torch.isChecked = isTorchOn
 
+        binding.siren.addOnCheckedChangeListener { _, isChecked ->
+            isSirenOn = isChecked
+        }
 
+        binding.torch.addOnCheckedChangeListener { _, isChecked ->
+            isTorchOn = isChecked
+        }
     }
 
 }

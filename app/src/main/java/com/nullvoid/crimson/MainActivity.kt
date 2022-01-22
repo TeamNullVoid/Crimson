@@ -1,10 +1,13 @@
 package com.nullvoid.crimson
 
+import android.Manifest
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.core.app.ActivityCompat
 import com.google.firebase.auth.FirebaseAuth
 import com.nullvoid.crimson.adapters.MainPagerAdapter
 import com.nullvoid.crimson.databinding.ActivityMainBinding
@@ -15,13 +18,36 @@ class MainActivity : AppCompatActivity(), Toolbar.OnMenuItemClickListener {
     private lateinit var binding: ActivityMainBinding
     private lateinit var menuFragment: MenuFragment
 
+    companion object {
+        private const val RC_LOC = 12
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        checkPerms()
         init()
+    }
+
+    private fun checkPerms() {
+        if (ActivityCompat.checkSelfPermission(
+                this,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED || ActivityCompat.checkSelfPermission(
+                this,
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            requestPermissions(
+                arrayOf(
+                    Manifest.permission.ACCESS_COARSE_LOCATION,
+                    Manifest.permission.ACCESS_FINE_LOCATION
+                ), RC_LOC
+            )
+        }
     }
 
     private fun init() {
@@ -31,7 +57,6 @@ class MainActivity : AppCompatActivity(), Toolbar.OnMenuItemClickListener {
         binding.mainBottomBar.setOnMenuItemClickListener(this)
         menuFragment = MenuFragment()
         binding.mainEmergencyButton.setOnClickListener {
-//            startActivity(Intent(this, EmergencyActivity::class.java))
         }
         binding.mainBottomBar.setNavigationOnClickListener {
             supportFragmentManager.beginTransaction()
@@ -62,10 +87,6 @@ class MainActivity : AppCompatActivity(), Toolbar.OnMenuItemClickListener {
     }
 
     override fun onMenuItemClick(item: MenuItem): Boolean {
-//        when (item.itemId) {
-//            R.id.menu_addUser -> supportFragmentManager.beginTransaction()
-//                .add(SendRequestFragment(), SendRequestFragment::class.java.simpleName).commit()
-//        }
         return true
     }
 
