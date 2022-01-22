@@ -44,6 +44,7 @@
     <string name="sharing_location">Sharing Location</string>
     <string name="location_updates">Location Updates</string>
     <string name="msg_started_loc_share">%1$s Started Location Sharing</string>
+    <string name="add_emg_contacts">Add Emergency Contacts</string>
     <string-array name="layers">
         <item>Normal</item>
         <item>Satellite</item>

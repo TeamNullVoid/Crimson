@@ -9,6 +9,7 @@
         <entry key="..\:/Crimson/app/src/main/res/drawable/menu_button_selector.xml" value="0.30185185185185187" />
         <entry key="..\:/Crimson/app/src/main/res/drawable/shape_round_corners.xml" value="0.31203703703703706" />
         <entry key="..\:/Crimson/app/src/main/res/drawable/shape_round_only_top.xml" value="0.3055555555555556" />
+        <entry key="..\:/Crimson/app/src/main/res/layout/activity_add_crimson_user.xml" value="0.325" />
         <entry key="..\:/Crimson/app/src/main/res/layout/activity_auth.xml" value="0.3171171171171171" />
         <entry key="..\:/Crimson/app/src/main/res/layout/activity_authentication_phone.xml" value="0.3171171171171171" />
         <entry key="..\:/Crimson/app/src/main/res/layout/activity_main.xml" value="0.3171171171171171" />
@@ -19,6 +20,7 @@
         <entry key="..\:/Crimson/app/src/main/res/layout/fragment_menu.xml" value="0.325" />
         <entry key="..\:/Crimson/app/src/main/res/layout/fragment_share_location.xml" value="0.325" />
         <entry key="..\:/Crimson/app/src/main/res/layout/layout_auth_phone.xml" value="0.32592592592592595" />
+        <entry key="..\:/Crimson/app/src/main/res/layout/layout_contact_item.xml" value="0.325" />
         <entry key="..\:/Crimson/app/src/main/res/layout/layout_info_window.xml" value="0.325" />
         <entry key="..\:/Crimson/app/src/main/res/layout/layout_places_sheet.xml" value="0.325" />
         <entry key="..\:/Crimson/app/src/main/res/layout/layout_stop_loc_sharing.xml" value="0.325" />
