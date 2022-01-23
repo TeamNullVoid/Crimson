@@ -25,7 +25,6 @@ class Constant {
         const val PREF_KEY_THEME = "key_theme"
 
         const val FCM_URL = "https://fcm.googleapis.com"
-        const val SERVER_KEY = "AAAAnH0-d_M:APA91bHK9N-YiwWPcA8Jht0frE2AybgTcn9EjAqBlIVHH6L7QXCT9V_y3LqiEHpDH8vhowCbm1xraBrs9tNa6hhQdY6rraCDFiYnNYQfj0MJyLl9W8Zd2cLlnXNwjQ4ejoKjF4DnFd7A"
         const val CONTENT_TYPE = "application/json"
 
         val permissions = arrayOf(
